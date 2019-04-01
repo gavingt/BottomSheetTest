@@ -17,14 +17,14 @@
         app:behavior_peekHeight="262dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
 
-    <LinearLayout
+    <com.gavinsappcreations.bottomsheettest.MyLinearLayout
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/add_touch_tip_button"
+            android:id="@+id/first_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -34,12 +34,12 @@
             android:backgroundTint="#00F"
             android:paddingLeft="9dp"
             android:paddingRight="10dp"
-            android:text="Add a tip"
+            android:text="first button"
             android:textAllCaps="false"
             android:textSize="17dp"/>
 
         <Button
-            android:id="@+id/microphone_button"
+            android:id="@+id/second_button"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_marginLeft="50dp"
@@ -51,10 +51,10 @@
             android:maxLines="1"
             android:paddingLeft="8dp"
             android:paddingRight="5dp"
-            android:text="Voice input"
+            android:text="second button"
             android:textAllCaps="false"
             android:textSize="16dp"/>
 
-    </LinearLayout>
+    </com.gavinsappcreations.bottomsheettest.MyLinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

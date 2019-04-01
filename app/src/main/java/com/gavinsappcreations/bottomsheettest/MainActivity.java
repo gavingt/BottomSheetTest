@@ -133,7 +133,7 @@ class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.V
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.recyclerview_row_complex, parent, false);
+        View view = mInflater.inflate(R.layout.recycler_view_row_item, parent, false);
         return new ViewHolder(view);
     }
 
