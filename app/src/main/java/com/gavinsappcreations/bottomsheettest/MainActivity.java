@@ -24,40 +24,6 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         setContentView(R.layout.activity_main);
 
 
-/*        // get the bottom sheet view
-        LinearLayout llBottomSheet = findViewById(R.id.bottom_sheet);
-
-        // init the bottom sheet behavior
-        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(llBottomSheet);
-
-        // set callback for changes
-        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-
-            }
-
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-
-            }
-        });*/
-        
-        
-/*        findViewById(R.id.add_touch_tip_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "add touch tip button", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        findViewById(R.id.bottom_sheet_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "bottom sheet button", Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
 
 
         // data to populate the RecyclerView with
