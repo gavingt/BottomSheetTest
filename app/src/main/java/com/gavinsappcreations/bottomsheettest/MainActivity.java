@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,8 +25,10 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RecyclerView rv = findViewById(R.id.bottom_sheet);
 
-
+        DelegatingLayout dl = findViewById(R.id.delegating_layout);
+        dl.setDelegateView(rv);
 
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();

@@ -4,6 +4,7 @@
                                                  xmlns:tools="http://schemas.android.com/tools"
                                                  android:layout_width="match_parent"
                                                  android:layout_height="match_parent"
+                                                 android:id="@+id/coordinator_layout"
                                                  tools:context=".MainActivity">
 
     <!--This is the bottom buttons-->
@@ -17,7 +18,8 @@
         app:behavior_peekHeight="262dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
 
-    <com.gavinsappcreations.bottomsheettest.MyLinearLayout
+    <com.gavinsappcreations.bottomsheettest.DelegatingLayout
+        android:id="@+id/delegating_layout"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -55,6 +57,6 @@
             android:textAllCaps="false"
             android:textSize="16dp"/>
 
-    </com.gavinsappcreations.bottomsheettest.MyLinearLayout>
+    </com.gavinsappcreations.bottomsheettest.DelegatingLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
