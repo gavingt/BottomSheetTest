@@ -2,15 +2,17 @@ package com.gavinsappcreations.bottomsheettest;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 public class DelegatingLayout extends LinearLayout {
+
+    private boolean isDelegating;
+    private ViewGroup delegateView;
+    private int[] originalOffset = new int[2];
 
     public DelegatingLayout(Context context) {
         super(context);
@@ -24,15 +26,8 @@ public class DelegatingLayout extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    private boolean isDelegating;
-    private ViewGroup delegateView;
-
     public void setDelegateView(ViewGroup view) {
         delegateView = view;
-    }
-
-    public boolean isDelegating() {
-        return isDelegating;
     }
 
     @Override
@@ -44,10 +39,16 @@ public class DelegatingLayout extends LinearLayout {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 isDelegating = false;
+                originalOffset[0] = 0;
+                originalOffset[1] = 0;
         }
 
         // If we're delegating, send all events to the delegate
         if (isDelegating) {
+
+            // Offset location in case the delegate view has shifted since we last fed it a motion event.
+            ev.offsetLocation(originalOffset[0] - delegateView.getLeft(), originalOffset[1] - delegateView.getTop());
+
             return delegateView.dispatchTouchEvent(ev);
         }
 
@@ -55,13 +56,20 @@ public class DelegatingLayout extends LinearLayout {
         isDelegating = delegateView.onInterceptTouchEvent(ev);
 
         if (isDelegating) {
+
             // If delegate has stolen, we should cancel any touch handling in our own view.
             MotionEvent cancel = MotionEvent.obtain(ev);
             cancel.setAction(MotionEvent.ACTION_CANCEL);
             super.dispatchTouchEvent(cancel);
             cancel.recycle();
 
-            Log.d("LOG", "getY: " + ev.getY());
+            // May be more complicated to handle other edge cases
+            // (i.e. non shared parent view descendants, translation, etc.)
+            //
+            // I would use getLocationInWindow to cover more cases, but
+            // the current issue only touches getTop() so this simple efficient solution is fine.
+            originalOffset[0] = delegateView.getLeft();
+            originalOffset[1] = delegateView.getTop();
 
             // Send the touch event to the delegate
             return delegateView.onTouchEvent(ev);
@@ -71,7 +79,3 @@ public class DelegatingLayout extends LinearLayout {
         return super.dispatchTouchEvent(ev);
     }
 }
-
-
-
-

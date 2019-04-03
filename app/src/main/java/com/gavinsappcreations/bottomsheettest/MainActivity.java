@@ -30,11 +30,6 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         DelegatingLayout bottomButtonLayout = findViewById(R.id.bottom_button_layout);
         bottomButtonLayout.setDelegateView(bottomSheetRecyclerView);
 
-        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) bottomSheetRecyclerView.getLayoutParams();
-        CustomBottomSheetBehavior bottomSheetBehavior = (CustomBottomSheetBehavior) layoutParams.getBehavior();
-        bottomSheetBehavior.setDelegatingView(bottomButtonLayout);
-
-
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
         animalNames.add("Horse");
