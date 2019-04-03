@@ -361,8 +361,6 @@ public class CustomBottomSheetBehavior<V extends View> extends CoordinatorLayout
             return;
         }
 
-        //TODO: dy is way too high when scrolling over a blue button
-
         int currentTop = child.getTop();
         int newTop = currentTop - dy;
         //Log.d("LOG", "dy: " + dy);
