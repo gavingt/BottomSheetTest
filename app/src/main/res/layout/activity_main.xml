@@ -16,7 +16,7 @@
         android:overScrollMode="never"
         app:behavior_hideable="false"
         app:behavior_peekHeight="262dp"
-        app:layout_behavior="com.gavinsappcreations.bottomsheettest.CustomBottomSheetBehavior"/>
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
 
     <com.gavinsappcreations.bottomsheettest.DelegatingLayout
         android:id="@+id/bottom_button_layout"
