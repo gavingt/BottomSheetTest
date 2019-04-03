@@ -16,10 +16,10 @@
         android:overScrollMode="never"
         app:behavior_hideable="false"
         app:behavior_peekHeight="262dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
+        app:layout_behavior="com.gavinsappcreations.bottomsheettest.CustomBottomSheetBehavior"/>
 
     <com.gavinsappcreations.bottomsheettest.DelegatingLayout
-        android:id="@+id/delegating_layout"
+        android:id="@+id/bottom_button_layout"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         android:layout_width="match_parent"

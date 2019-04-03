@@ -3,6 +3,7 @@ package com.gavinsappcreations.bottomsheettest;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Rect;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -132,6 +133,9 @@ public class CustomBottomSheetBehavior<V extends View> extends CoordinatorLayout
     boolean mIsScrollable = true;
     public boolean mMinimumDyOvercome = false;
     public int mMostRecentSettledState = STATE_COLLAPSED;
+
+    private DelegatingLayout delegatingView;
+
     /**
      * Default constructor for instantiating BottomSheetBehaviors.
      */
@@ -164,10 +168,15 @@ public class CustomBottomSheetBehavior<V extends View> extends CoordinatorLayout
     }
 
 
+    public void setDelegatingView(@NonNull DelegatingLayout view) {
+        delegatingView = view;
+    }
+
     //I added this method to control the scrollability of the BottomSheet from its parent Activity.
     public void setScrollable(boolean bIsScrollable) {
         mIsScrollable = bIsScrollable;
     }
+
 
 
     @Override
@@ -222,11 +231,10 @@ public class CustomBottomSheetBehavior<V extends View> extends CoordinatorLayout
         mNestedScrollingChildRef = new WeakReference<>(findScrollingChild(child));
         return true;
     }
+
+
     @Override
     public boolean onInterceptTouchEvent(CoordinatorLayout parent, V child, MotionEvent event) {
-
-        Log.d("LOG", "OnInterceptTouchEvent from CustomBottomSheetBehavior");
-
 
         if (!mIsScrollable) {
             return false;
@@ -286,17 +294,16 @@ public class CustomBottomSheetBehavior<V extends View> extends CoordinatorLayout
         // it is not the top most view of its parent. This is not necessary when the touch event is
         // happening over the scrolling content as nested scrolling logic handles that case.
         View scroll = mNestedScrollingChildRef.get();
+
         return action == MotionEvent.ACTION_MOVE && scroll != null &&
-                !mIgnoreEvents && mState != STATE_DRAGGING &&
-                !parent.isPointInChildBounds(scroll, (int) event.getX(), (int) event.getY()) &&
+                !mIgnoreEvents && mState != STATE_DRAGGING && delegatingView.isDelegating() &&
                 Math.abs(mInitialY - event.getY()) > mViewDragHelper.getTouchSlop();
     }
 
 
+
     @Override
     public boolean onTouchEvent(CoordinatorLayout parent, V child, MotionEvent event) {
-
-        Log.d("LOG", "OnTouchEvent from CustomBottomSheetBehavior");
 
         if (!child.isShown() || !mIsScrollable) {
             return false;
@@ -353,8 +360,12 @@ public class CustomBottomSheetBehavior<V extends View> extends CoordinatorLayout
         if (target != scrollingChild) {
             return;
         }
+
+        //TODO: dy is way too high when scrolling over a blue button
+
         int currentTop = child.getTop();
         int newTop = currentTop - dy;
+        //Log.d("LOG", "dy: " + dy);
         if (dy > 0) { // Upward
             if (newTop < mMinOffset) {
                 consumed[1] = currentTop - mMinOffset;

@@ -25,10 +25,15 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView rv = findViewById(R.id.bottom_sheet);
+        RecyclerView bottomSheetRecyclerView = findViewById(R.id.bottom_sheet);
 
-        DelegatingLayout dl = findViewById(R.id.delegating_layout);
-        dl.setDelegateView(rv);
+        DelegatingLayout bottomButtonLayout = findViewById(R.id.bottom_button_layout);
+        bottomButtonLayout.setDelegateView(bottomSheetRecyclerView);
+
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) bottomSheetRecyclerView.getLayoutParams();
+        CustomBottomSheetBehavior bottomSheetBehavior = (CustomBottomSheetBehavior) layoutParams.getBehavior();
+        bottomSheetBehavior.setDelegatingView(bottomButtonLayout);
+
 
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
@@ -64,15 +69,11 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         animalNames.add("Goat");
 
         // set up the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.bottom_sheet);
         LinearLayoutManager llm = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(llm);
+        bottomSheetRecyclerView.setLayoutManager(llm);
         adapter = new MyRecyclerViewAdapter(this, animalNames);
         adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
-
-
-
+        bottomSheetRecyclerView.setAdapter(adapter);
     }
 
 
